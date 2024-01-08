@@ -6,7 +6,7 @@ const { v4: uuid } = require('uuid');
 
 const logEvents = async (message, fileName) => {
   const date = format(new Date(), 'dd/MM/yy\tHH:mm');
-  const logItem = `${message}\t${uuid()}\t${date}`;
+  const logItem = `${message}\t${uuid()}\t${date}\n`;
   console.log(logItem);
   try {
     if (!fs.existsSync(path.join(__dirname, '..', 'logs'))) {
@@ -24,5 +24,6 @@ const logger = (req, _, next) => {
 }
 
 module.exports = {
-  logger
+  logger,
+  logEvents
 }

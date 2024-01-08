@@ -8,6 +8,7 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const cookieParser = require('cookie-parser')
 const connectDB = require('./config/dbConnect');
+const errorHandler = require('./middleware/errorHandler');
 const app = express();
 
 connectDB();
@@ -19,16 +20,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser())
 //static files
-app.use('/', express.static(path.join(__dirname, '/public')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 //routes
 app.use('/', require('./routes/root'));
 app.use('/employees', require('./routes/api/employees'));
 
 //error handler
-app.use('*', (req, res) => {
-  res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+app.all('*', (req, res) => {
+  res.status(404);
+  if (req.accepts('html')) {
+    res.sendFile(path.join(__dirname, 'views', '404.html'));
+  } else if (req.accepts('json')) {
+    res.json({ "error": "404 Not Found" });
+  } else {
+    res.type('txt').send("404 Not Found");
+  }
 })
+
+app.use(errorHandler)
 
 mongoose.connection.once('open', () => {
   console.log('Connected to DB');

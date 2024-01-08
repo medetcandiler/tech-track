@@ -4,12 +4,49 @@
   box-sizing: border-box;
 }
 
-body{
-  height: 100vh;
-  background-color: #000;
+/* Reset some default browser styles */
+body,
+h1,
+h2,
+ul,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Add a background color to the whole page */
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #333;
   color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* Style the main content */
+main {
+  padding: 2rem;
+}
+
+/* Style individual sections */
+.intro,
+.features,
+.contact {
+  margin-bottom: 2rem;
+}
+
+/* Style the footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
