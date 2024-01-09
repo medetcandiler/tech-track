@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const { logger, logEvents } = require('./middleware/logEvents');
 const mongoose = require('mongoose');
-const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
@@ -10,7 +9,9 @@ const cookieParser = require('cookie-parser')
 const connectDB = require('./config/dbConnect');
 const errorHandler = require('./middleware/errorHandler');
 const app = express();
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3600; 
+
+console.log(process.env.NODE_ENV)
 
 connectDB();
 //middlewares
@@ -20,7 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser())
 //static files
-app.use('/', express.static(path.join(__dirname, 'public')))
+// app.use('/', express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'))
 
 //routes
 app.use('/', require('./routes/root'));
