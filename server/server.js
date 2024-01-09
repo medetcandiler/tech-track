@@ -27,6 +27,7 @@ app.use(express.static('public'))
 //routes
 app.use('/', require('./routes/root'));
 app.use('/users', require('./routes/api/usersRoute'));
+app.use('/notes', require('./routes/api/notesRoute'));
 
 //error handler
 app.all('*', (req, res) => {
